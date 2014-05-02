@@ -1,0 +1,57 @@
+body{
+	color: white;
+	background-color: #3D3D3D;
+}
+
+a{
+	color: white;
+}
+
+#mainMenu{
+	background-color: black;
+}
+
+	#mainMenu .username{
+		color: white;
+	}
+
+
+.content-miseriesly{
+	background-color: rgb(51, 51, 51);
+}
+
+		.pendingCount{
+			background-color: black;
+		}
+
+.content-media-split{
+	background-color: rgb(51, 51, 51);
+}
+
+		ul.content-media-episodes-list > li > a{
+			background-color: rgb(51, 51, 51);
+			border-left: 5px solid #C0C0C0;
+			color: white;
+		}
+
+		ul.content-media-episodes-list > li > a.seen{
+			background-color: rgb(75, 75, 75);
+			color: white;
+		}
+
+.content-profile-split {
+	background-color: rgb(51, 51, 51);
+}
+
+.content-title{
+	color: white;
+}
+
+.content-subtitle{
+	color: white;
+}
+
+.content-subtitle:hover, .content-subtitle.selected{
+	background-color: rgb(51, 51, 51);
+	color: white;
+}

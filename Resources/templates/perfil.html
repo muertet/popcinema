@@ -1,0 +1,59 @@
+<div class="wrapper">
+	<h1 class="content-title">Perfil</h1>
+</div>
+
+<div class="content-profile">
+	<span class="profile-username">@<%=user.nick %></span>
+
+	<div class="content-profile-split">
+		<img class="profile-avatar" src="<%=user.img_user %>">
+		<span class="profile-name"><%=user.full_name %></span>
+		<span class="profile-points"><%=user.points %> puntos</span>
+		<p>
+			<label>
+				Cantidad de episodios a descargar por serie a la vez:
+				<select id="preference-max-downloads">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label>
+				Host preferido:
+				<select id="preference-host">
+					<option value="-1">Selecciona</option>
+					<option value="StreamCloud">StreamCloud</option>
+					<option value="Played.to">Played.to</option>
+					<option value="allmyvideos">Allmyvideos</option>
+					<option value="Vidspot">Vidspot</option>
+					<option value="NowVideo">NowVideo</option>
+					<option value="Uploaded">Uploaded</option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<label>
+				Idioma:
+				<select id="preference-language">
+					<option value="-1">Selecciona</option>
+					<option value="Castellano">Castellano</option>
+					<option value="VO">Versión Original (VO)</option>
+					<option value="Latino">Español (Latino)</option>
+					<option value="ca">Català</option>
+					<option value="eu">Euskera</option>
+					<option value="gl">Gallego</option>
+					<option value="no_lang">Sin audio</option>
+				</select>
+			</label>
+		</p>
+		<p>
+			<a id="logout" href="logout">Cerrar sesión</a>
+		</p>
+	</div>
+</div>

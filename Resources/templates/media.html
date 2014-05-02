@@ -1,0 +1,61 @@
+<div class="content-media-split clearfix">
+	<div class="wrapper">
+		<img src="<%=media.poster.large%>" class="content-media-poster">
+
+		<div class="content-media-title">
+			<%=media.name%>
+		</div>
+
+		<div class="content-media-episodes">
+			<% if(media.mediaType == 1 || media.mediaType == 4){ %>
+				<h2>Temporadas</h2>
+
+				<% for (k in media.seasons) { %>
+					<a href="javascript:void(0);" id="season-indicator-<%=media.seasons[k][0].season %>" data-season="<%=media.seasons[k][0].season %>" class="content-media-season <% if(media.seasons[k][0].season==currentSeason){ %> selected <% } %>"><%=media.seasons[k][0].season %></a>
+				<% } %>
+
+				<% for(k in media.seasons){ var season=media.seasons[k]; %>
+					<% seasonNum=k.replace("season_0","").replace("season_",""); %>
+
+					<ul id="season-<%=season[0].season%>" class="content-media-episodes-list" <% if(seasonNum!=currentSeason){ %> style="display:none;" <% } %>>
+
+						<% for(i in season){ var episode=season[i]; %>
+							<li data-episode="<%=episode.idm%>">
+								<a href="javascript:void(0);" class="<% if(episode.watched){ %> seen <%}%> ">
+									<%=episode.season%>x<%=episode.num%> - <%=episode.name%>
+								<% if (DManager.hasLinks(dList,episode.idm)){%>
+									<div class="eye  eyeSeen" title="Capítulo descargado o en proceso de descarga" style="right: 47px;background:url(app://images/popcorn.png);width:35px"></div>
+								<% } %>
+								<div class="eye <% if(episode.watched){ %> eyeSeen <%}%>"></div>
+								</a>
+								<ul id="episode-<%=episode.idm%>" class="content-media-episodes-links" style="display:none;"></ul>
+							</li>
+						<% } %>
+
+					</ul>
+				<% } %>
+
+			<% }else{ %>
+				<h2>Enlaces</h2>
+
+				<ul class="content-media-episodes-links"></ul>
+			<% } %>
+		</div>
+
+		<div class="content-media-info">
+			<div class="content-media-mainInfo">
+				<a class="button-back" onclick="javascript:history.go(-1)" href="javascript:void(0)">Volver</a>
+				<span class="media-mainInfo-type">
+					<%=Site.mediaType(media.mediaType)%>: 
+					</span>
+				<span class="media-mainInfo-genre"><%=media.maingenre%> (<%=media.year%>)</span>
+			</div>
+
+			<div class="content-media-plot">
+				<span class="media-plot-text">
+					<%=media.plot%>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

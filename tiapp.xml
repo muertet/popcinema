@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ti:app xmlns:ti='http://ti.appcelerator.org'>
+<id>com.muertet.popcinema</id>
+<name>PopCinema</name>
+<version>1</version>
+<publisher>PopCinema</publisher>
+<url>http://popcinema.com</url>
+<icon>images/popcorn.png</icon>
+<copyright>PopCinema</copyright>
+<!-- Window Definition - these values can be edited -->
+<window>
+<id>initial</id>
+<title>PopCinema</title>
+<url>app://index.htm</url>
+<width>700</width>
+<max-width>3000</max-width>
+<min-width>0</min-width>
+<height>500</height>
+<max-height>3000</max-height>
+<min-height>0</min-height>
+<fullscreen>true</fullscreen>
+<resizable>false</resizable>
+<chrome scrollbars="true">true</chrome>
+<maximizable>true</maximizable>
+<minimizable>true</minimizable>
+<closeable>true</closeable>
+</window>
+</ti:app>

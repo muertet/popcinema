@@ -1,0 +1,70 @@
+<div class="wrapper">
+	<h1 class="content-title">Mi Series.ly</h1>
+</div>
+
+<div class="wrapper">
+	<a class="content-subtitle" href="javascript:void(0)" item-type="series" id="firstTab"><span class="pendingCount"><%=myMedia.series.length%></span> Series </a>
+	<a class="content-subtitle" href="javascript:void(0)" item-type="peliculas"><span class="pendingCount"><%=myMedia.movies.length%></span> Películas </a>
+	<a class="content-subtitle" href="javascript:void(0)" item-type="programas"><span class="pendingCount"><%=myMedia.tvshows.length%></span> Programas </a>
+	<a class="content-subtitle" href="javascript:void(0)" item-type="documentaries"><span class="pendingCount"><%=myMedia.documentaries.length%></span> Documentales </a>
+</div>
+
+<div class="content-miseriesly" id="content-miseriesly-series">
+	<div class="wrapper">
+		<%for(k in myMedia.series){ var media=myMedia.series[k];%>
+		<div class="home-media" style="display:inline;">
+			<a href="media/<%=media.idm%>/<%=media.mediaType%>/<%=Util.friendly_url(media.name)%>">
+				<img src="http://cdn.opensly.com/series/<%=media.id_media%>.jpg" class="item">
+				<% if (dList[media.idm+"-"+media.mediaType] !== undefined) { %>
+					<div style="display:inline;position:relative">
+						<img src="app://images/popcorn.png" title="Tienes capítulos descargados" style="left: -48px;position: absolute;top: -29px;">
+					</div>
+				<% } %>
+			</a>
+			<div style="position:relative;display: inline;">
+		    	<input type="checkbox" data-idm="<%=media.idm%>" title="Descargar capítulos automáticamente" data-mediatype="<%=media.mediaType%>" <%if(PendingMedias.isPending(media.idm, media.mediaType)) {%>checked="checked"<%}%> style="position:absolute;left: -187px;top: -13px;">
+			</div>
+		</div>
+		<%}%>
+	</div>
+</div>
+
+<div class="content-miseriesly" id="content-miseriesly-peliculas" style="display:none;">
+	<div class="wrapper">
+		<%for(k in myMedia.movies){ var media=myMedia.movies[k];%>
+		<a href="media/<%=media.idm%>/<%=media.mediaType%>/<%=Util.friendly_url(media.name)%>"><img src="http://cdn.opensly.com/pelis/<%=media.id_media%>.jpg" class="item">
+			<% if (dList[media.idm+"-"+media.mediaType] !== undefined) { %>
+				Descargada
+			<% } %>
+		</a>
+		<%}%>
+	</div>
+</div>
+
+<div class="content-miseriesly" id="content-miseriesly-programas" style="display:none;">
+	<div class="wrapper">
+		<%for(k in myMedia.tvshows){ var media=myMedia.tvshows[k];%>
+		<a href="media/<%=media.idm%>/<%=media.mediaType%>/<%=Util.friendly_url(media.name)%>"><img src="http://cdn.opensly.com/series/<%=media.id_media%>.jpg" class="item">
+			<% if (dList[media.idm+"-"+media.mediaType] !== undefined) { %>
+				Tienes capítulos descargados
+			<% } %>
+		</a>
+		<%}%>
+	</div>
+</div>
+
+<div class="content-miseriesly" id="content-miseriesly-documentaries" style="display:none;">
+	<div class="wrapper">
+		<%for(k in myMedia.documentaries){ var media=myMedia.documentaries[k];%>
+		<a href="media/<%=media.idm%>/<%=media.mediaType%>/<%=Util.friendly_url(media.name)%>"><img src="http://cdn.opensly.com/pelis/<%=media.id_media%>.jpg" class="item">
+			<% if (dList[media.idm+"-"+media.mediaType] !== undefined) { %>
+				Descargada
+			<% } %>
+		</a>
+		<%}%>
+	</div>
+</div>
+
+<script>
+	$("#firstTab").addClass("selected");
+</script>

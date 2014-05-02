@@ -1,0 +1,515 @@
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+ 
+.clearfix {
+    display: inline-block;
+}
+
+/* Mobile */
+@media screen and (max-width:700px) {
+
+}
+
+/* Tablet */
+@media screen and (max-width:1024px) {
+
+}
+
+/* Screen */
+body{
+	background-color: #2980b9;
+	padding: 0;
+	margin: 0;
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	color: white;
+	font-size: 16px;
+}
+
+a{
+	text-decoration: none;
+	color: white;
+}
+
+#loadingDiv{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	bottom: 0;
+	right: 0;
+	background-color: #CCC;
+	opacity: 0.3;
+	color: black;
+	padding: 10px;
+	z-index: 9;
+}
+
+#loadingBar{
+	top: 0;
+	width: 10%;
+	height: 10px;
+	background-color: #2980b9;
+	position: fixed;
+	z-index: 9999;
+}
+
+.back{
+	color: white;
+	display: inline-block;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#mainMenu{
+	/* background-color: #107e9f; */
+	background-color: black;
+	display: block;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 999;
+}
+
+		#mainMenu-list{
+			float: left;
+			margin-top: 50px;
+		}
+
+		#mainMenu-list li{
+			display: inline;
+			list-style-type: none;
+			text-transform: uppercase;
+			font-weight: 300;
+			margin: 0 40px;
+			font-size: 1.7em;
+		}
+
+		#mainMenu-list li a{
+			color: rgba(255,255,255,.7);
+		}
+
+		#mainMenu-list li a:hover{
+			color: rgba(255,255,255,1);
+		}
+
+		#mainMenu-avatar{
+			float: right;
+			margin: 30px;
+		}
+
+		#mainMenu-avatar img{
+			width: 60px;
+			border-radius: 100%;
+			float: right;
+		}
+
+		#mainMenu-avatar .username{
+			float: right;
+			margin: 20px 15px;
+			font-size: 1.3em;
+			text-transform: uppercase;
+		}
+
+#content{
+	position: relative;
+	top: 160px;
+}
+
+	.wrapper{
+		margin: 0 80px;
+	}
+
+	.content-title{
+		text-transform: uppercase;
+		font-weight: 300;
+		font-size: 2.3em;
+	}
+
+		.content-subtitle{
+			color: rgba(255,255,255,.7);
+			text-transform: uppercase;
+			font-weight: 300;
+			font-size: 1.3em;
+			padding: 20px;
+			display: inline-block;
+			margin-right: 30px;
+		}
+
+		.content-subtitle:hover, .content-subtitle.selected{
+			color: rgba(255,255,255, 1);
+			background-color: rgba(0,0,0,.3);
+		}
+
+		.pendingCount{
+			padding: 3px 10px;
+			background-color: rgba(0,0,0,.3);
+			margin-right: 10px;
+		}
+
+	/* Mi seriesly */
+	.content-miseriesly{
+		width: 400px;
+		background-color: rgba(0,0,0,.3);
+		width: 100%;
+		min-height: 300px;
+		padding: 40px 0;
+	}
+
+		.content-miseriesly .item{
+			margin-right: 10px;
+			margin-bottom: 10px;
+			box-shadow: 3px 5px 10px #1F1F1F;
+		}
+
+	/* Ficha */
+	.content-media-split{
+		background-color: rgba(0,0,0,.3);
+		margin-top: 120px;
+		width: 100%;
+		min-height: 500px;
+		position: relative;
+		padding-bottom: 20px;
+	}
+
+	.content-media-poster{
+		margin-top: -90px;
+		float: left;
+		margin-right: 30px;
+		box-shadow: 3px 5px 10px #1F1F1F;
+	}
+
+	.content-media-title{
+		top: -60px;
+		position: relative;
+		font-size: 2.2em;
+	}
+
+	.content-media-plot{
+		max-width: 40%;
+		clear: left;
+	}
+
+		.media-plot-text{
+			line-height: 1.5em;
+			font-size: 1.3em;
+		}
+
+		.media-plot-title{
+			font-weight: bold;
+			display: block;
+			margin-bottom: 12px;
+		}
+
+	.button-back{
+		display: inline-block;
+		background-color: rgb(114, 156, 114);
+		color: white;
+		padding: 8px 20px;
+		margin-bottom: 40px;
+	}
+
+	.content-media-mainInfo{
+		width: 20%;
+		float: left;
+	}
+
+	.media-mainInfo-type, .media-mainInfo-genre{
+		display: block;
+		margin-bottom: 15px;
+		font-size: 1.2em;
+	}
+
+	.media-mainInfo-type{
+		margin-bottom: 15px;
+	}
+	 .media-mainInfo-genre{
+	 	margin-bottom: 30px;
+	 }
+
+	.content-media-episodes{
+		float: right;
+		width: 50%;
+	}
+
+		.content-media-episodes h2{
+			font-size: 1.3em;
+			display: block;
+		}
+
+		.content-media-season{
+			display: inline-block;
+			background-color: #444;
+			padding: 6px 10px;
+			color: white;
+			font-weight: bold;
+		}
+
+		.content-media-season:hover, .content-media-season.selected{
+			background-color: orange;
+			color: black;
+		}
+
+	ul.content-media-episodes-list{
+		list-style-type: none;
+		padding: 0;
+		margin: 10px 0;
+	}
+
+	ul.content-media-episodes-list > li > a{
+		padding: 15px 0;
+		border-left: 5px solid #494949;
+		padding-left: 15px;
+		margin: 2px 0;
+		background-color: #242424;
+		font-size: 1.3em;
+		display: block;
+		position: relative;
+	}
+
+	ul.content-media-episodes-list li a.seen{
+		/* border-left: 5px solid rgb(72, 153, 72); */
+		/* background-color: #4E4E4E; */
+		background-color: rgb(53, 53, 53);
+	}
+
+		ul.content-media-episodes-links {
+			margin-top: 10px;
+			padding-left: 0;
+		}
+
+		ul.content-media-episodes-links li{
+			border: 0;
+			margin: 0;
+			list-style-type: none;
+			border-bottom: 1px solid rgb(88, 164, 207);
+			background-color: none;
+		}
+
+		ul.content-media-episodes-links li a{
+			padding: 15px 0;
+			display: block;
+		}
+
+		ul.content-media-episodes-links li span{
+			margin: 0px 15px;
+		}
+
+		ul.content-media-episodes-links li span.host{
+			min-width: 150px;
+			display: inline-block;
+		}
+
+		ul.content-media-episodes-links li span.lang{
+			min-width: 150px;
+			display: inline-block;
+		}
+
+	.eye{
+		width: 39px;
+		height: 26px;
+		background: url("http://cdn.opensly.com/v3/sprite_media.png?vDM_4") top left no-repeat;
+		cursor: pointer;
+		background-position: -39px -25px;
+		opacity: 0.2;
+		position: absolute;
+		right: 10px;
+		bottom: 15px;
+	}
+
+	.eyeSeen{
+		opacity: 1;
+	}
+
+	/* Perfil */
+	.content-profile{
+		text-align: center;
+		font-size: 45px;
+	}
+
+	.content-profile-split{
+		background-color: rgba(0,0,0,.2);
+		width: 100%;
+		min-height: 500px;
+	}
+
+	.profile-username{
+		display: block;
+		margin-bottom: 100px;
+	}
+
+	.profile-avatar{
+		margin-top: -60px;
+		border-radius: 100%;
+	}
+
+	.profile-name{
+		display: block;
+		margin-top: 20px;
+		margin-bottom: 10px;
+		font-size: 25px;
+		text-transform: uppercase;
+	}
+
+	.profile-points{
+		display: block;
+		font-size: 18px;
+	}
+
+	.profile-followers{
+		display: block;
+		font-size: 18px;
+		margin-top: 50px;
+		margin-bottom: 20px;
+		text-transform: uppercase;
+	}
+
+	.profile-following{
+		display: block;
+		font-size: 18px;
+		text-transform: uppercase;
+	}
+
+	.profile-follow-count{
+		font-size: 30px;
+		margin-right: 15px;
+	}
+
+
+
+/* Login */
+
+#loginForm h1{
+	color: black;
+	font-weight: 100;
+	font-size: 2.4em;
+	padding: 0;
+	margin: 0;
+	padding-bottom: 15px;
+	text-align: center;
+}
+
+#loginForm{
+	margin: 0 auto;
+	max-width: 400px;
+	background-color: white;
+	padding: 40px;
+	box-sizing: border-box;
+}
+
+#loginForm input{
+	display: block;
+	width: 100%;
+	background-color: #F1F1F1;
+	padding: 10px;
+	font-size: 1.2em;
+	margin: 15px 0;
+	border: 0;
+	color: black;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+#loginForm input[type=submit]{
+	display: block;
+	width: 100%;
+	background-color: #2980b9;
+	color: white;
+	border: 0;
+	padding: 15px;
+	text-transform: uppercase;
+	margin-top: 0px;
+	font-size: 1em;
+	border-bottom: 3px solid #1F6EA2;
+	cursor: pointer;
+}
+
+#logout{
+	display: inline-block;
+	background-color: #F00;
+	color: #FFF;
+	border: 0;
+	padding: 15px 120px;
+	text-transform: uppercase;
+	margin-top: 30px;
+	font-size: 0.5em;
+	border-bottom: 3px solid #900;
+	cursor: pointer;
+}
+
+#loginInvitation{
+	text-align: center;
+}
+
+#loginInvitation a{
+	display: block;
+	background-color: #68ABD8;
+	max-width: 400px;
+	margin: 20px auto;
+	padding: 15px;
+	box-sizing: border-box;
+	border-bottom: 3px solid #4193CA;
+	color: white;
+}
+
+.loginError{
+	text-align: center;
+	background-color: rgb(240, 156, 79);
+	border: 2px solid rgb(233, 132, 38);
+	width: 100%;
+	padding: 11px 0;
+	box-sizing: border-box;
+}
+
+/* Search */
+
+#searchInput{
+	padding: 15px;
+	border: 1px solid #CCC;
+	width: 50%;
+	margin-bottom: 25px;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+
+#searchButton{
+	border: 0;
+	padding: 16px 45px;
+	font-size: 1.3em;
+	background-color: rgb(56, 56, 56);
+	color: white;
+	cursor: pointer;
+}
+.download-bar{
+	display: inline-block;
+	float: right;
+	height: 20px;
+	width: 200px;
+}
+.downloaded-content{
+	background-color:orange;
+}
+.red-button{
+	background-color: red;
+	border-bottom: 3px solid #900;
+	border: 0px;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 20px;
+	margin-top: 30px;
+	padding: 13px 20px;
+	text-transform: uppercase;
+}
+#mainMenu-avatar a{
+	float:left;
+}
+#wellcome-page{
+	text-align:center;
+	font-size: 40px;
+}

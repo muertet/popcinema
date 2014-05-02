@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			@font-face {
+			  font-family: 'Roboto';
+			  font-style: normal;
+			  font-weight: 100;
+			  src: url('fonts/Roboto-Thin.ttf');
+			}
+			@font-face {
+			  font-family: 'Roboto';
+			  font-style: normal;
+			  font-weight: 300;
+			  src: url('fonts/Roboto-Light.ttf');
+			}
+			@font-face {
+			  font-family: 'Roboto';
+			  font-style: normal;
+			  font-weight: 400;
+			  src: url('fonts/Roboto-Regular.ttf');
+			}
+			@font-face {
+			  font-family: 'Roboto';
+			  font-style: normal;
+			  font-weight: 700;
+			  src: url('fonts/Roboto-Bold.ttf');
+			}
+			::-webkit-scrollbar {
+                width: 10px;
+                height: 10px;
+            }
+            ::-webkit-scrollbar-button:start:decrement,
+            ::-webkit-scrollbar-button:end:increment  {
+                display: none;
+            }
+             
+            ::-webkit-scrollbar-track-piece  {
+                background-color: #3b3b3b;
+                -webkit-border-radius: 6px;
+            }
+             
+            ::-webkit-scrollbar-thumb:vertical {
+                -webkit-border-radius: 6px;
+                background: #666 url(images/scrollbar_thumb_bg.png) no-repeat center;
+            }
+		</style>
+		<!--base href="/TideSDK-HelloWorld-master/Resources/"-->
+		<base href="app://com.muertet.popcinema/">
+		<link href="css/style.css" rel="stylesheet" type="text/css">
+		<link href="css/dark.css" rel="stylesheet" type="text/css">
+		<link href="css/jquery-ui.css" rel="stylesheet" type="text/css">
+
+		<title>PopCinema</title>
+	</head>
+
+	<body>
+		<div id="mainMenu" style="display: none;">
+			<ul id="mainMenu-list">
+				<li><a href="miseriesly">Mi Series.ly</a></li>
+				<li><a href="search">Buscar</a></li>
+			</ul>
+			<div id="mainMenu-avatar">
+				<a href="/profile">
+					<img src="">
+					<span class="username"></span>
+				</a>
+				<button id="minimize-app" class="red-button" title="minimizar app">_</button>
+				<button id="close-app" class="red-button" title="cerrar app">X</button>
+			</div>
+		</div>
+		<div id="content">
+		</div>
+
+		<div id="loadingBar"></div>
+		<div id="loadingDiv"></div>
+
+		<script type="text/javascript" src="js/lib/js-signals.min.js"></script>
+		<script type="text/javascript" src="js/lib/crossroads.js"></script>
+		<script type="text/javascript" src="js/lib/jquery.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-ui.js"></script>
+		<script type="text/javascript" src="js/lib/templates.js"></script>
+		<script type="text/javascript" src="js/src/util.js"></script>
+		<script type="text/javascript" src="js/src/site.js"></script>
+		<script type="text/javascript" src="js/src/user.js"></script>
+		<script type="text/javascript" src="js/src/app.js"></script>
+		<script type="text/javascript" src="js/src/jdownloader.js"></script>
+		<script type="text/javascript" src="js/src/downloadmanager.js"></script>
+		<script type="text/javascript" src="js/src/pendingmedias.js"></script>
+		<script type="text/javascript" src="js/src/router.js"></script>
+
+		<script type="text/javascript">
+
+			var current_window = Ti.UI.getCurrentWindow();
+			
+			// Basic app settings
+			App.title = 'PopCinema';
+			App.url = 'http://195.154.12.114/popcinema/';
+            
+            // setup event to create the tray icon
+            Ti.UI.getCurrentWindow().addEventListener(Ti.MINIMIZED, function(event) 
+            {
+            	tray = Ti.UI.addTray("app://images/popcorn.png", function(evt) {
+	                if (evt.getType() == 'clicked') {
+	                    if (!current_window.isVisible()) {
+	                        current_window.show();
+	                        tray.remove();
+	                    }
+	                }
+	            });
+
+            	var menu = Ti.UI.createMenu();
+            	menu.addItem('Cerrar', function() {
+				  if (confirm('¿Estás seguro?')) {
+				    Ti.App.exit();
+				  }});
+
+	            tray.setHint(App.title);
+	            tray.setMenu(menu);
+                current_window.hide();
+            });
+
+            
+
+		    window.slAsyncInit = function() {
+		        SL.init({
+		            id_api: 1732,
+		            auth_url: App.url+'token.php', // Relative to your site
+					callback_url:'http://series.ly/lite/',
+					callback: function() {
+						if (typeof sessionStorage.user_token != 'undefined' && sessionStorage.user_token != '') {	
+							SL.user_token = sessionStorage.user_token;
+							
+							$(function() {
+								if (typeof localStorage.user != 'undefined' && localStorage.user != '') {
+									User.info = jQuery.parseJSON(localStorage.user);
+									
+									$('#mainMenu-avatar img').attr('src',User.info.img_user);
+									$('#mainMenu-avatar .username').html(User.info.nick);
+									$('#mainMenu').show();
+								}
+							});
+						}
+						loadPage();
+					}
+		        });
+		    };
+		    // Load the SDK Asynchronously and enqueues API calls, executed when the SDK is loaded
+		    (function(d) {
+		        var js, id = 'seriesly-jssdk', s = d.getElementsByTagName('script')[0];
+		        if (d.getElementById(id)) {return;}
+		        js = d.createElement('script'); js.id = id; js.type = 'text/javascript';
+		        js.async = true; js.src = 'http://series.ly/lite/js/sdk.js';
+		        s.parentNode.insertBefore(js, s);
+		        window.slOnReady = []; var SLProto = function() { this.api = function(q, p, c) {
+		        window.slOnReady.push({q:q, p:p, c:c}); }}; SL = new SLProto();
+		    })(document);
+
+		    
+		    $(function() {
+				$('#close-app').on('click',function(){
+					Ti.App.exit();
+				});
+				$('#minimize-app').on('click',function(){
+					current_window.minimize();
+				});
+			});
+		    
+		    App.init();
+		</script>
+	</body>
+</html>
