@@ -3,6 +3,8 @@
 ![popcinema](https://github.com/muertet/popcinema/blob/master/images/popcinema1.jpg?raw=true)
 ![popcinema2](https://github.com/muertet/popcinema/blob/master/images/popcinema2.jpg?raw=true)
 
+[![Analytics](https://ga-beacon.appspot.com/UA-17476024-7/popcinema/readme?pixel)](https://github.com/muertet/popcinema)
+
 AVISO
 =======
 Esta aplicación no guarda relación con series.ly, ha sido desarrollada mediante el uso de su [API](http://api.series.ly/docs/).
