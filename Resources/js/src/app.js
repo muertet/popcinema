@@ -32,5 +32,24 @@ var App = {
 			}
 			callback(vlink);
 		});
+	},
+	downloadPoster : function(url) {
+		var path = url.replace('http://cdn.opensly.com/',Ti.App.getHome()+'/Resources/images/'),
+			file = Ti.Filesystem.getFile(path),
+			httpClient;
+
+		if (!file.exists()) {
+			console.log('downloading');
+			httpClient = Ti.Network.createHTTPClient();		
+			httpClient.open('GET', url);
+			httpClient.receive(function(data) {
+			  var fileStream = file.open(Ti.Filesystem.MODE_APPEND);
+			  fileStream.write(data);
+			  fileStream.close();
+			});
+		}
+		path = 'file:///'+path.replace(/\\/g,'/');
+
+		return path;
 	}
 };

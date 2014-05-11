@@ -260,6 +260,9 @@ var Site = {
                     if(typeof media.plot_es !='undefined'){
                         media.plot=media.plot_es;
                     }
+                    
+                    // download media poster
+                    App.downloadPoster(media.poster.large);
 
                     obj.full=media;
                     //obj.full=obj.basic;
@@ -276,6 +279,11 @@ var Site = {
             });
         }else{
             data=jQuery.parseJSON(data);
+            
+            if (type=='full') {
+                data[type] = Site.parseMedia(data[type]);
+            }
+            
             return callback(data[type]);
         }
     },
@@ -421,5 +429,35 @@ var Site = {
         }
 
         return type;
+    },
+    parseMedia : function(media) {
+
+        var path,
+            mediaType;
+
+        if (media === undefined) {
+            return {};
+        }
+
+        if (media.img === undefined) {
+            if (media.mediaType == Site.TYPE_SERIE || media.mediaType == Site.TYPE_TVSHOW) {
+                mediaType = 'series';
+            }else{
+                mediaType = 'pelis';
+            }
+            path = 'http://cdn.opensly.com/'+mediaType+'/'+media.id_media+'.jpg';
+        }else{
+            path = media.img;
+        }
+        
+        path = App.downloadPoster(path);
+        media.img = path;
+
+        if (media.poster === undefined) {
+            media.poster = {};
+        }
+        media.poster.large = path;
+
+        return media;
     }
 };

@@ -109,6 +109,12 @@ crossroads.addRoute('/miseriesly', function(){
     	SL.api('/user/media/pending',function(medias)
         {
             sessionStorage.pendingMedias = JSON.stringify(medias);
+            
+            for (k in medias) {
+            	for (l in medias[k]) {
+            		medias[k][l] = Site.parseMedia(medias[k][l]);
+            	}
+            }
 
             DManager.getList(function(dList) {
 
