@@ -93,7 +93,7 @@ var Site = {
 		                }
 
 		                html+=Site.parseTemplate(function(){/*
-		                <li id="link-<%=link.idv%>">
+		                <li id="link-<%=link.idv%>" data-idv="<%=link.idv%>" data-idm="<%=idm%>" data-mediatype="<%=mediaType%>">
 			                <a href="<%=link.video_url%>?auth_token=<%=auth_token%>&user_token=<%=userToken%>" target="_blank">
 			                	<span class="host">
 			                		<strong><%=link.host%></strong>
@@ -102,6 +102,7 @@ var Site = {
 			                	<span data-id="download-bar"><%=link.quality%></span>
 			                </a>
 			                <button onclick="Site.jd(<%=idm%>,<%=mediaType%>,<%=link.idv%>);">Enviar a JDownloader</button>
+			                <button data-action="watch-online">Ver online</button>
 		                </li>
 						*/},{link:link,idm:idm,mediaType:mediaType,auth_token:SL.auth_token,userToken:SL.user_token});
 		            }
@@ -112,6 +113,20 @@ var Site = {
 	            }else{
 	                $('.content-media-episodes ul').html(html);
 	            }
+	            
+	            $('button[data-action="watch-online"]').on('click',function(){
+                    var parent = $(this).parent(),
+                        idm = parent.data('idm'),
+                        mediaType = parent.data('mediatype'),
+                        idv = parent.data('idv');
+
+                    $(this).attr('disabled','disabled');
+
+                    App.getLink(idm, mediaType, idv, function(link) {
+                        var embed = Site.buildEmbed(link);
+                        Site.html({html:'<div style="text-align:center">'+embed+'</div>'});
+                    });
+                });
 	            
 	            Site.startDownloadBars();
         	});
@@ -289,6 +304,127 @@ var Site = {
     },
     delCache : function(id,mediaType) {
         delete(localStorage['mediaCache'+id+'_'+mediaType]);
+    },
+    buildEmbed : function(link, width, height) {
+         if(width === undefined){
+             width = 1280;
+         }
+         if(height === undefined){
+             height = 720;
+         }
+        var hostList = {
+            1:{
+                'id':1,
+                'name':'streamCloud',
+                'domain':'streamcloud.eu',
+                'embed':'<iframe width="{{width}}" height="{{height}}" src="http://www.cinezer.com/streamcloud/{{code}}" frameborder="0" ></iframe>',
+                'regex':[
+                    /streamcloud\.eu\/(.*)/
+                ]
+            },
+            2:{
+                'id':2,
+                'name':'VK',
+                'domain':'vk.com',
+                'embed':'<iframe src="{{url}}" width="{{width}}" height="{{height}}" frameborder="0"></iframe>',
+                'regex':[
+                    /vk\.com\/video_ext.php?(.*)/,
+                    /vk\.com\/video(.*)/
+                ]
+            },
+            3:{
+                'id':3,
+                'name':'Youtube',
+                'domain':'youtube.com',
+                'embed':'<iframe width="{{width}}" height="{{height}}" src="//www.youtube.com/embed/{{code}}" frameborder="0" allowfullscreen></iframe>',
+                'regex':[
+                    /youtube\.com\/watch\?v=(.*)/,
+                    /youtube\.com\/v\/(.*)/
+                ]
+            },
+            4:{
+                'id':4,
+                'name':'NowVideo',
+                'domain':'nowvideo.sx',
+                'embed':'<iframe width="{{width}}" height="{{height}}" frameborder="0" src="http://embed.nowvideo.sx/embed.php?v={{code}}" scrolling="no"></iframe>',
+                'regex':[
+                    /nowvideo\.sx\/video\/(.*)/,
+                    /nowvideo\.eu\/video\/(.*)/
+                ]
+            },
+            5:{
+                'id':5,
+                'name':'Allmyvideos',
+                'domain':'allmyvideos.net',
+                'embed':'<iframe src="http://allmyvideos.net/embed-{{code}}.html" frameborder=0 marginwidth=0 marginheight=0 scrolling=NO width="{{width}}" height="{{height}}"></iframe>',
+                'regex':[
+                    /allmyvideos.net\/(.*)/
+                ]
+            },
+            6:{
+                'id':6,
+                'name':'Vimeo',
+                'domain':'vimeo.com',
+                'embed':'<iframe src="//player.vimeo.com/video/{{code}}" width="{{width}}" height="{{height}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>',
+                'regex':[
+                    /vimeo.com\/(.*)/
+                ]
+            },
+            7:{
+                'id':7,
+                'name':'Magnovideo',
+                'domain':'magnovideo.com',
+                'embed':"Magno requires more work to be embed..",
+                'regex':[
+                    /magnovideo.com\/\?v=(.*)/
+                ]
+            },
+            8:{
+                'id':8,
+                'name':'Played.to',
+                'domain':'played.to',
+                'embed':'<iframe src="http://played.to/embed-{{code}}-{{width}}x{{height}}.html" width="{{width}}" height="{{height}}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>',
+                'regex':[
+                    /played.to\/(.*)/
+                ]
+            },
+            9:{
+                'id':9,
+                'name':'Upafile',
+                'domain':'upafile.com',
+                'embed':'<iframe id="videoPlayerTest" src="gkplugins/runVideo.php?link={{url}}" style="width: {{width}}; height: {{height}}"></iframe>',
+                'regex':[
+                    /upafile.com\/(.*)/
+                ]
+            }
+        },
+        host={},
+        regex='',
+        matches=[],
+        embed='';
+
+            for(hostId in hostList)
+            {
+                host=hostList[hostId];
+
+                for(k in host.regex)
+                {
+                    regex=host.regex[k];
+
+                    matches=link.match(regex);
+
+                    if(matches!=null){
+
+                        embed=host.embed.replace(/\{\{code\}\}/g,matches[1])
+                                        .replace(/\{\{url\}\}/g,link)
+                                        .replace(/\{\{height\}\}/g,height)
+                                        .replace(/\{\{width\}\}/g,width);
+                        return embed;
+                    }
+                }
+            }
+            return false;
+
     },
     loading: function(status) { 
         if (typeof status == 'undefined') {
