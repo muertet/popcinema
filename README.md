@@ -41,7 +41,14 @@ Puede ser compilada para Linux, Mac y Windows.
 
 ToDo
 ========
-- Soporte para streaming de enlaces
-- Soporte para torrents
-- Soporte para otros gestores de descarga como MiPony
+- [x] Soporte para streaming de enlaces
+  - [x] Played.to
+  - [x] Streamcloud
+  - [x] allmyvideos
+  - [x] youtube
+  - [x] vk
+  - [ ] putlocker
+  - [ ] magnovideo
+- [ ] Soporte para torrents
+- [ ] Soporte para otros gestores de descarga como MiPony
 
